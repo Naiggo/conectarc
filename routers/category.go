@@ -2,6 +2,7 @@ package routers
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 
 	"github.com/Naiggo/conectarc/bd"
@@ -10,6 +11,7 @@ import (
 )
 
 func InserCategory(body, user string) (int, string) {
+	fmt.Println("Starting InsertCategory")
 	var category models.Category
 
 	err := json.Unmarshal([]byte(body), &category)

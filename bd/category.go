@@ -13,7 +13,7 @@ import (
 )
 
 func InsertCategory(category models.Category) (int64, error) {
-	fmt.Println("Starting InsertCategory")
+	fmt.Println("Starting InsertCategory on repository")
 
 	err := DbConnect()
 	if err != nil {
@@ -21,7 +21,7 @@ func InsertCategory(category models.Category) (int64, error) {
 	}
 	defer Db.Close()
 
-	sentence := "INSERT INTO category (Categ_Name, Categ_Path) VALUS ('" + category.CategName + "','" + category.CategPath + "')"
+	sentence := "INSERT INTO category (Categ_Name, Categ_Path) VALUES ('" + category.CategName + "','" + category.CategPath + "')"
 
 	var result sql.Result
 	result, err = Db.Exec(sentence)
