@@ -71,6 +71,8 @@ func ProcessProducts(body, path, method, user string, id int, request events.API
 }
 
 func ProcessCategory(body, path, method, user string, id int, request events.APIGatewayV2HTTPRequest) (int, string) {
+	fmt.Println("Starting ProcessCategory on handler")
+
 	switch method {
 	case "POST":
 		return routers.InserCategory(body, user)
