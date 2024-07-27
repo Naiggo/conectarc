@@ -54,3 +54,33 @@ func ConnStr(keys models.SecretRDSJson) string {
 	fmt.Println("Connection String created ", dbName)
 	return dsn
 }
+
+func UserIsAdmin(userUUID string) (bool, string) {
+	fmt.Println("Starting UserIsAdmin validation")
+
+	err := DbConnect()
+	if err != nil {
+		return false, err.Error()
+	}
+
+	defer Db.Close()
+
+	sentence := "SELECT 1 FROM users WHERE User_UUID='" + userUUID + "' AND User_Status = 0"
+	fmt.Println(sentence)
+
+	rows, err := Db.Query(sentence)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	var value string
+	rows.Next()
+	rows.Scan(&value)
+
+	fmt.Println("UserIsAdmin > Successful Excecution - returned value " + value)
+	if value == "1" {
+		return true, ""
+	}
+
+	return false, "User is not Admin"
+}
